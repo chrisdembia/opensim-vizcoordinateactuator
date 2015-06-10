@@ -1,0 +1,31 @@
+# Written by referring to OpenSim's appveyor.yml.
+
+shallow_clone: true
+
+environment:
+  matrix:
+    - OSIMDIR: OpenSim 3.2-32bit-VS10
+      NICKN: 3.2_32bit_vs10
+      VSVER: Visual Studio 10
+
+init:
+  - SET PATH=%APPVEYOR_BUILD_FOLDER%/%OSIMDIR%/bin;%PATH%
+
+build_script:
+  - mkdir "%APPVEYOR_BUILD_FOLDER%/build"
+  - cd "%APPVEYOR_BUILD_FOLDER%/build"
+  # Configure.
+  - dir ..
+  - cmake .. -G"%VSVER%" -DOPENSIM_INSTALL_DIR="%APPVEYOR_BUILD_FOLDER%/%OSIMDIR%" -DCMAKE_INSTALL_PREFIX="%APPVEYOR_BUILD_FOLDER%/install"
+  # Compile.
+  #- MSBuild OpenSimMuscleMetabolicsProbes.sln /target:ALL_BUILD /p:Configuration=Release /maxcpucount:4 /verbosity:quiet
+  - cmake --build . --config RelWithDebInfo --target ALL_BUILD -- /verbosity:quiet
+
+after_test:
+  - cd "%APPVEYOR_BUILD_FOLDER%/build"
+  # Install.
+  - cmake --build . --config RelWithDebInfo --target INSTALL -- /verbosity:quiet
+
+  # Create zip of the installation.
+  - 7z a opensim-vizcoordinateactuator_v%NICKN%.zip %APPVEYOR_BUILD_FOLDER%/install/
+  - appveyor PushArtifact opensim-vizcoordinateactuator_v%NICKN%.zip

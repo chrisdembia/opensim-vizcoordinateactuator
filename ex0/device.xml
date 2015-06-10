@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<OpenSimDocument Version="30000">
+	<ForceSet>
+		<objects>
+			<VizCoordinateActuator name="assist_ankle_angle_r">
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>0</max_control>
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>ankle_angle_r</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+			</VizCoordinateActuator>
+			<VizCoordinateActuator name="assist_ankle_angle_l">
+				<!--Maximum allowed value for control signal. Used primarily when solving for control values.-->
+				<max_control>0</max_control>
+				<!--Name of the generalized coordinate to which the actuator applies.-->
+				<coordinate>ankle_angle_l</coordinate>
+				<!--The maximum generalized force produced by this actuator.-->
+				<optimal_force>1000</optimal_force>
+			</VizCoordinateActuator>
+		</objects>
+		<groups />
+	</ForceSet>
+</OpenSimDocument>
