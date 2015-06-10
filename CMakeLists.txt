@@ -20,5 +20,8 @@ set_target_properties(osimVizCoordinateActuator PROPERTIES
     DEFINE_SYMBOL OSIMVIZCOORDINATEACTUATOR_EXPORTS)
 target_link_libraries(osimVizCoordinateActuator ${OPENSIMSIMBODY_LIBRARIES})
 
+add_executable(viz viz.cpp)
+target_link_libraries(viz ${OPENSIMSIMBODY_LIBRARIES})
+
 install(TARGETS osimVizCoordinateActuator DESTINATION .)
 
